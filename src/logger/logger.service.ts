@@ -10,8 +10,8 @@ import LokiTransport = require('winston-loki');
 export class PublisherService extends Logger {
 	public LOG_PATH: string;
 	public APP_NAME: string;
-	public LOKI_HOST: string;
-	loki: winston.Logger;
+	public LOKI_HOST?: string;
+	loki?: winston.Logger;
 
 	constructor(
 		@Inject(MICRO_LOGGER_MODULE_OPTIONS) options: IMicroLoggerOptions,
@@ -22,16 +22,18 @@ export class PublisherService extends Logger {
 		this.APP_NAME = options.APP_NAME;
 		this.LOKI_HOST = options.LOKI_HOST;
 
-		this.loki = createLogger({
-			transports: [
-				new LokiTransport({
-					labels: {
-						appName: options.APP_NAME,
-					},
-					host: options.LOKI_HOST,
-				}),
-			],
-		});
+		if (this.LOKI_HOST) {
+			this.loki = createLogger({
+				transports: [
+					new LokiTransport({
+						labels: {
+							appName: options.APP_NAME,
+						},
+						host: options.LOKI_HOST,
+					}),
+				],
+			});
+		}
 	}
 
 	async log(message: string) {
@@ -40,7 +42,7 @@ export class PublisherService extends Logger {
 
 		await this.publish('logs', message);
 
-		this.loki.info(`[${this.APP_NAME}] ${message}`);
+		if (this.loki) this.loki.info(`[${this.APP_NAME}] ${message}`);
 	}
 
 	async error(message: string) {
@@ -48,7 +50,7 @@ export class PublisherService extends Logger {
 		console.error(color, `[${this.APP_NAME}] `, message);
 
 		await this.publish('exceptions', message);
-		this.loki.error(`[${this.APP_NAME}] ${message}`);
+		if (this.loki) this.loki.error(`[${this.APP_NAME}] ${message}`);
 	}
 
 	async info(
@@ -56,7 +58,7 @@ export class PublisherService extends Logger {
 		{ archive, terminal, loki } = {
 			archive: true,
 			terminal: true,
-			loki: true,
+			loki: false,
 		},
 	) {
 		if (terminal) {
@@ -66,7 +68,7 @@ export class PublisherService extends Logger {
 
 		if (archive) await this.publish('info', message);
 
-		if (loki) {
+		if (loki && this.loki) {
 			this.loki.info(`[${this.APP_NAME}] ${message}`);
 		}
 	}
@@ -76,7 +78,7 @@ export class PublisherService extends Logger {
 		{ archive, terminal, loki } = {
 			archive: true,
 			terminal: true,
-			loki: true,
+			loki: false,
 		},
 	) {
 		if (terminal) {
@@ -86,7 +88,7 @@ export class PublisherService extends Logger {
 
 		if (archive) await this.publish('criticals', message);
 
-		if (loki) {
+		if (loki && this.loki) {
 			this.loki.error(`[${this.APP_NAME}] ${message}`);
 		}
 	}
