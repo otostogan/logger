@@ -20,9 +20,9 @@ $ npm install sobbey-micro-logger
 
 ```bash
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { IMicroLoggerModuleAsyncOptions } from 'sobbey-micro-logger';
+import { ILoggerModuleAsyncOptions } from 'sobbey-micro-logger';
 
-export const getLoggerConfig = (): IMicroLoggerModuleAsyncOptions => ({
+export const getLoggerConfig = (): ILoggerModuleAsyncOptions => ({
   inject: [ConfigService],
   imports: [ConfigModule],
   useFactory: (configService: ConfigService) => ({
@@ -34,7 +34,7 @@ export const getLoggerConfig = (): IMicroLoggerModuleAsyncOptions => ({
 
 ```
 
-## Declaring MicroLogger Module
+## Declaring Logger Module
 
 ```bash
 @Module({
@@ -50,5 +50,3 @@ export class SetupConfigModule {}
 ## Support
 
 sobbey-micro-logger is an open source project. It can grow thanks to the sponsors and support by the amazing backers.
-
-

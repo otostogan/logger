@@ -1,15 +1,13 @@
 import { ModuleMetadata } from '@nestjs/common';
 
-export interface IMicroLoggerOptions {
+export interface ILoggerOptions {
 	LOG_PATH: string;
 	APP_NAME: string;
 	LOKI_HOST?: string;
 }
 
-export interface IMicroLoggerModuleAsyncOptions
+export interface ILoggerModuleAsyncOptions
 	extends Pick<ModuleMetadata, 'imports'> {
-	useFactory: (
-		...args: any[]
-	) => Promise<IMicroLoggerOptions> | IMicroLoggerOptions;
+	useFactory: (...args: any[]) => Promise<ILoggerOptions> | ILoggerOptions;
 	inject?: any[];
 }

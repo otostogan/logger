@@ -2,7 +2,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import * as path from 'path';
 import { appendFileSync, ensureDir, existsSync, writeFileSync } from 'fs-extra';
 import { MICRO_LOGGER_MODULE_OPTIONS } from '../app.constants';
-import { IMicroLoggerOptions } from '../app.interface';
+import { ILoggerOptions } from '../app.interface';
 import winston, { createLogger } from 'winston';
 import LokiTransport = require('winston-loki');
 
@@ -13,9 +13,7 @@ export class PublisherService extends Logger {
 	public LOKI_HOST?: string;
 	loki?: winston.Logger;
 
-	constructor(
-		@Inject(MICRO_LOGGER_MODULE_OPTIONS) options: IMicroLoggerOptions,
-	) {
+	constructor(@Inject(MICRO_LOGGER_MODULE_OPTIONS) options: ILoggerOptions) {
 		super();
 
 		this.LOG_PATH = options.LOG_PATH;
