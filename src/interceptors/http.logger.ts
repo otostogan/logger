@@ -25,6 +25,9 @@ export class HTTPLoggerInterceptor implements NestInterceptor {
 		const startTime = Date.now();
 		if (!this.excludeRoutes.includes(url)) {
 			this._publisher.info(
+				`-----------------------------------------------------`,
+			);
+			this._publisher.info(
 				`TRIGGERED: ${method} '${url}' body:${JSON.stringify({
 					body,
 				})}, params: ${JSON.stringify({ params })}, query: ${JSON.stringify(
@@ -42,6 +45,9 @@ export class HTTPLoggerInterceptor implements NestInterceptor {
 					this._publisher.log(
 						`Completed ${method} ${url}, requestID: ${requestId}, Time Taken: ${timeTaken}ms`,
 					);
+					this._publisher.info(
+						`-----------------------------------------------------`,
+					);
 				}
 			}),
 			catchError((error) => {
@@ -49,6 +55,9 @@ export class HTTPLoggerInterceptor implements NestInterceptor {
 					`ENDPOINT ERROR ${method} '${url}' ${JSON.stringify(
 						error,
 					)}, requestID: ${requestId}`,
+				);
+				this._publisher.info(
+					`-----------------------------------------------------`,
 				);
 				return throwError(() => error);
 			}),
