@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { MicroLogModule } from '../app.module';
+import { LogModule } from '../app.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { path } from 'app-root-path';
 import { TestService } from './test.service';
 
 @Module({
 	imports: [
-		MicroLogModule.forRootAsync({
+		LogModule.forRootAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],
 			useFactory: () => {

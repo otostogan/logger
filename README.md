@@ -40,9 +40,9 @@ export const getLoggerConfig = (): ILoggerModuleAsyncOptions => ({
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
-    MicroLogModule.forRootAsync(getLoggerConfig()),
+	LogModule.forRootAsync(getLoggerConfig()),
   ],
-  exports: [MicroLogModule],
+  exports: [LogModule],
 })
 export class SetupConfigModule {}
 ```
