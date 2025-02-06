@@ -13,14 +13,14 @@ Includes logging in Nest Console, Logs Files and Grafana Loki
 ## Installation
 
 ```bash
-$ npm install sobbey-micro-logger
+$ npm install otostogan-nest-logger
 ```
 
 ## Logger Config
 
 ```bash
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ILoggerModuleAsyncOptions } from 'sobbey-micro-logger';
+import { ILoggerModuleAsyncOptions } from 'otostogan-nest-logger';
 
 export const getLoggerConfig = (): ILoggerModuleAsyncOptions => ({
   inject: [ConfigService],
@@ -49,4 +49,4 @@ export class SetupConfigModule {}
 
 ## Support
 
-sobbey-micro-logger is an open source project. It can grow thanks to the sponsors and support by the amazing backers.
+otostogan-nest-logger is an open source project. It can grow thanks to the sponsors and support by the amazing backers.
