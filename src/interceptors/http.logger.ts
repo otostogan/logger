@@ -22,6 +22,7 @@ export class HTTPLoggerInterceptor implements NestInterceptor {
 		const request = context.switchToHttp().getRequest();
 		const { method, url, body, params, query } = request;
 		const requestId = uuidv4();
+		const startTime = Date.now();
 		if (!this.excludeRoutes.includes(url)) {
 			this._publisher.info(
 				`TRIGGERED: ${method} '${url}' body:${JSON.stringify({
@@ -37,8 +38,9 @@ export class HTTPLoggerInterceptor implements NestInterceptor {
 		return next.handle().pipe(
 			tap(() => {
 				if (!this.excludeRoutes.includes(url)) {
+					const timeTaken = Date.now() - startTime;
 					this._publisher.log(
-						`Completed ${method} ${url}, requestID: ${requestId}`,
+						`Completed ${method} ${url}, requestID: ${requestId}, Time Taken: ${timeTaken}ms`,
 					);
 				}
 			}),
