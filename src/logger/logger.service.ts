@@ -31,6 +31,7 @@ export class PublisherService extends Logger {
 					}),
 				],
 			});
+			this.log('Loki connected').then();
 		}
 	}
 
