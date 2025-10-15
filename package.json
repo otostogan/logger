@@ -23,11 +23,14 @@
 	},
 	"dependencies": {
 		"@nestjs/config": "^4.0.2",
+		"@opentelemetry/api-logs": "^0.206.0",
+		"@opentelemetry/exporter-logs-otlp-proto": "^0.206.0",
+		"@opentelemetry/resources": "^2.1.0",
+		"@opentelemetry/sdk-logs": "^0.206.0",
+		"@opentelemetry/semantic-conventions": "^1.37.0",
 		"app-root-path": "^3.1.0",
 		"fs-extra": "^11.2.0",
-		"uuid": "^11.0.5",
-		"winston": "^3.13.0",
-		"winston-loki": "^6.1.2"
+		"uuid": "^11.0.5"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3.2.0",

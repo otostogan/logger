@@ -1,7 +1,7 @@
 import { ModuleMetadata } from '@nestjs/common';
 
 export interface ILoggerOptions {
-	LOG_PATH: string;
+	LOG_PATH?: string;
 	APP_NAME: string;
 	LOKI_HOST?: string;
 }
